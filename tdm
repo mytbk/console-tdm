@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# TDM, tbk display manager, or tiny display manager, is a
-# session selector before login.
-# It links the starting script to default and start the 
-# startx script.
+# TDM, tbk display manager, or tiny display manager,
+# is a session selector after login.
+# It links the starting script to default and start
+# the startx script.
 
 CONFDIR=~/.tdm
 SESSIONS=${CONFDIR}/sessions

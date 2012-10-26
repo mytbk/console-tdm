@@ -22,4 +22,4 @@ package(){
 	chmod +x $pkgdir/usr/bin/tdm
 }
 
-md5sums=("4e8a977516d0ee942a023dcc63094b34")
+md5sums=("f1f1735e1f39567fd2f1e06cd5459f2e")
