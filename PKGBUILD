@@ -8,7 +8,7 @@ pkgver=0.2.1
 pkgrel=2
 license=('GPL')
 depends=('xorg-xinit')
-source=('tdm')
+source=('tdm' 'tdmtree.tar.gz')
 install=tdm.install
 
 build() {
@@ -20,6 +20,10 @@ package(){
 	cd $srcdir
 	cp tdm $pkgdir/usr/bin/
 	chmod +x $pkgdir/usr/bin/tdm
+	cp -Rv usr $pkgdir/
 }
 
-md5sums=("f1f1735e1f39567fd2f1e06cd5459f2e")
+md5sums=(
+"e8c7f91d1dc3da4e0f245722373d18fe"
+"34fde89e0455e97c8843cdbddcd6a5da"
+)

@@ -5,7 +5,12 @@
 # It links the starting script to default and start
 # the startx script.
 
-CONFDIR=~/.tdm
+if [[ -d "~/.tdm" ]]; then
+	CONFDIR=~/.tdm
+else
+	CONFDIR=/usr/share/tdm
+fi
+
 SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
 if [[ -x "${CONFDIR}/default" ]]; then
