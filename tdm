@@ -5,8 +5,8 @@
 # It links the starting script to default and start
 # the startx script.
 
-if [[ -d "~/.tdm" ]]; then
-	CONFDIR=~/.tdm
+if [[ -d "$HOME/.tdm" ]]; then
+	CONFDIR=$HOME/.tdm
 else
 	CONFDIR=/usr/share/tdm
 fi
@@ -21,7 +21,7 @@ fi
 
 fallback(){
 	if [[ -n $1 ]]; then
-		echo $1
+		echo -e "\033[31;1m$1\033[0m"
 	fi
 	exec $SHELL
 }
