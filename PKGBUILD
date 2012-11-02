@@ -24,6 +24,6 @@ package(){
 }
 
 md5sums=(
-"6e21a89fb950132345808ea920d2035f"
+"e0fc6c2f95e5cec9d06c4e6e8638a8bc"
 "34fde89e0455e97c8843cdbddcd6a5da"
 )

@@ -9,6 +9,10 @@ CONFDIR="$HOME/.tdm"
 if [[ ! -d "${CONFDIR}" ]]; then
 	cp -Rv "/usr/share/tdm" "${CONFDIR}"
 fi
+#load locale settings
+if [[ -f "${CONFDIR}/locale" ]]; then
+	source "${CONFDIR}/locale"
+fi
 
 SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
@@ -27,6 +31,9 @@ fallback(){
 
 # started from startx, so start session
 if [[ -n $1 && $1 = "--xstart" ]]; then
+	if [[ -n ${TLOCALE} ]]; then
+		export LANG=${TLOCALE}
+	fi
 	exec "${CONFDIR}/default"
 fi
 
