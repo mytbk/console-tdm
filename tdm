@@ -9,9 +9,9 @@ CONFDIR="$HOME/.tdm"
 if [[ ! -d "${CONFDIR}" ]]; then
 	cp -Rv "/usr/share/tdm" "${CONFDIR}"
 fi
-#load locale settings
-if [[ -f "${CONFDIR}/locale" ]]; then
-	source "${CONFDIR}/locale"
+#load tdmrc
+if [[ -f "${CONFDIR}/tdmrc" ]]; then
+	source "${CONFDIR}/tdmrc"
 fi
 
 SESSIONS=${CONFDIR}/sessions
