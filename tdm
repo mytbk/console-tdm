@@ -5,17 +5,29 @@
 # It links the starting script to default and start
 # the startx script.
 
+# directory settings
 CONFDIR="$HOME/.tdm"
+SESSIONS=${CONFDIR}/sessions
+EXTRA=${CONFDIR}/extra
+# build the directory tree if not exist
 if [[ ! -d "${CONFDIR}" ]]; then
 	cp -Rv "/usr/share/tdm" "${CONFDIR}"
 fi
-#load tdmrc
+
+# started from startx, so start session
+if [[ -n $1 && $1 = "--xstart" ]]; then
+	if [[ -n ${TLOCALE} ]]; then
+		export LANG=${TLOCALE}
+	fi
+	exec "${CONFDIR}/default"
+fi
+
+# otherwise, run as the session chosen script
+# load tdmrc
 if [[ -f "${CONFDIR}/tdmrc" ]]; then
 	source "${CONFDIR}/tdmrc"
 fi
 
-SESSIONS=${CONFDIR}/sessions
-EXTRA=${CONFDIR}/extra
 if [[ -x "${CONFDIR}/default" ]]; then
 	SDEFAULT=$(ls -l "${CONFDIR}/default" | awk -F ' -> ' '{print $2}')
 else
@@ -28,14 +40,6 @@ fallback(){
 	fi
 	exec $SHELL
 }
-
-# started from startx, so start session
-if [[ -n $1 && $1 = "--xstart" ]]; then
-	if [[ -n ${TLOCALE} ]]; then
-		export LANG=${TLOCALE}
-	fi
-	exec "${CONFDIR}/default"
-fi
 
 # check for a 'good' tty
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
