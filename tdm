@@ -9,6 +9,15 @@
 CONFDIR="$HOME/.tdm"
 SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
+
+# check for a 'good' tty
+(basename $(tty)|grep -q tty) || fallback "Invalid tty"
+
+# X started, exit
+if [ $(pgrep -c X) -ne 0 ]; then
+	fallback 'X started.'
+fi
+
 # build the directory tree if not exist
 if [[ ! -d "${CONFDIR}" ]]; then
 	cp -Rv "/usr/share/tdm" "${CONFDIR}"
@@ -40,14 +49,6 @@ fallback(){
 	fi
 	exec $SHELL
 }
-
-# check for a 'good' tty
-(basename $(tty)|grep -q tty) || fallback "Invalid tty"
-
-# X started, exit
-if [ $(pgrep -c X) -ne 0 ]; then
-	fallback 'X started.'
-fi
 
 clear
 echo 'This is TDM, a tiny display manager.'
