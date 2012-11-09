@@ -17,6 +17,14 @@ fallback(){
 	exec $SHELL
 }
 
+# started from startx, so start session
+if [[ -n $1 && $1 = "--xstart" ]]; then
+	if [[ -n ${TLOCALE} ]]; then
+		export LANG=${TLOCALE}
+	fi
+	exec "${CONFDIR}/default"
+fi
+
 # check for a 'good' tty
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
@@ -28,14 +36,6 @@ fi
 # build the directory tree if not exist
 if [[ ! -d "${CONFDIR}" ]]; then
 	cp -Rv "/usr/share/tdm" "${CONFDIR}"
-fi
-
-# started from startx, so start session
-if [[ -n $1 && $1 = "--xstart" ]]; then
-	if [[ -n ${TLOCALE} ]]; then
-		export LANG=${TLOCALE}
-	fi
-	exec "${CONFDIR}/default"
 fi
 
 # otherwise, run as the session chosen script
