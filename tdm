@@ -10,6 +10,13 @@ CONFDIR="$HOME/.tdm"
 SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
 
+fallback(){
+	if [[ -n $1 ]]; then
+		echo -e "\033[31;1m$1\033[0m"
+	fi
+	exec $SHELL
+}
+
 # check for a 'good' tty
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
@@ -42,13 +49,6 @@ if [[ -x "${CONFDIR}/default" ]]; then
 else
 	SDEFAULT=
 fi
-
-fallback(){
-	if [[ -n $1 ]]; then
-		echo -e "\033[31;1m$1\033[0m"
-	fi
-	exec $SHELL
-}
 
 clear
 echo 'This is TDM, a tiny display manager.'
