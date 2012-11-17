@@ -25,6 +25,8 @@ if [[ -n $1 && $1 = "--xstart" ]]; then
 	exec "${CONFDIR}/default"
 fi
 
+clear #clear screen
+
 # check for a 'good' tty
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
@@ -39,9 +41,9 @@ if [[ ! -d "${CONFDIR}" ]]; then
 fi
 
 # otherwise, run as the session chosen script
-# load tdmrc
-if [[ -f "${CONFDIR}/tdmrc" ]]; then
-	source "${CONFDIR}/tdmrc"
+# load tdminit
+if [[ -f "${CONFDIR}/tdminit" ]]; then
+	source "${CONFDIR}/tdminit"
 fi
 
 if [[ -x "${CONFDIR}/default" ]]; then
@@ -50,7 +52,6 @@ else
 	SDEFAULT=
 fi
 
-clear
 echo 'This is TDM, a tiny display manager.'
 echo 'Please select a session.'
 
