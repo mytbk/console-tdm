@@ -9,6 +9,7 @@
 CONFDIR="$HOME/.tdm"
 SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
+PREFIX=
 
 fallback(){
 	if [[ -n $1 ]]; then
@@ -37,7 +38,7 @@ fi
 
 # build the directory tree if not exist
 if [[ ! -d "${CONFDIR}" ]]; then
-	cp -Rv "/usr/share/tdm" "${CONFDIR}"
+	cp -Rv "${PREFIX}/share/tdm" "${CONFDIR}"
 fi
 
 # otherwise, run as the session chosen script
