@@ -10,7 +10,7 @@ fi
 
 echo "install to ${PREFIX}"
 install tdm ${DESTDIR}/${PREFIX}/bin/tdm
-SED_COMMAND="/PREFIX/{s#\$#${PREFIX}#g}"
+SED_COMMAND="/PREFIX=/{s#\$#${PREFIX}#g}"
 sed -i "${SED_COMMAND}" ${DESTDIR}/${PREFIX}/bin/tdm
 cp -Rv share ${DESTDIR}/${PREFIX}/
 
