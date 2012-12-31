@@ -48,7 +48,7 @@ if [[ -f "${CONFDIR}/tdminit" ]]; then
 fi
 
 if [[ -x "${CONFDIR}/default" ]]; then
-	SDEFAULT=$(ls -l "${CONFDIR}/default" | awk -F ' -> ' '{print $2}')
+	SDEFAULT=$(readlink "${CONFDIR}/default")
 else
 	SDEFAULT=
 fi
