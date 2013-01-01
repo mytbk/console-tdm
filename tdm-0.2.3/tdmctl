@@ -1,0 +1,43 @@
+#!/bin/bash
+#a tool to configure TDM
+
+CONFDIR="$HOME/.tdm"
+
+usage(){
+	echo "tdmctl [enable|disable|default|check] <prog>"
+}
+
+check(){
+	readlink "$1" || cat "$1"
+}
+
+if [ ! -n "$1" ]; then
+	usage
+	exit
+fi
+
+
+case "$1" in
+	default)
+		if [ ! -n "$2" ]; then
+			echo "Checking $(readlink "$CONFDIR/default")"
+			check $(readlink "$CONFDIR/default")
+		fi
+		;;
+	check)
+		FILE="$CONFDIR/sessions/$2"
+		if [ -f "$FILE" ]; then
+			check "$FILE"
+		else
+			echo "$2 not exist!"
+			exit 1
+		fi
+		;;
+	enable)
+		;;
+	disable)
+		;;
+	*)
+esac
+
+
