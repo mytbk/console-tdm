@@ -4,7 +4,9 @@
 CONFDIR="$HOME/.tdm"
 
 usage(){
-	echo "tdmctl [enable|disable|default|check] <prog>"
+	echo "tdmctl list: list available X sessions."
+	echo "tdmctl default [session]: show/set default X session"
+	echo "tdmctl check <session>: see what <session> is"
 }
 
 check(){
@@ -18,10 +20,20 @@ fi
 
 
 case "$1" in
+	list)
+		for session in "$CONFDIR/sessions"/*; do
+			[ -x $session ] && echo $(basename $session)
+		done
+		;;
 	default)
 		if [ ! -n "$2" ]; then
 			echo "Checking $(readlink "$CONFDIR/default")"
 			check $(readlink "$CONFDIR/default")
+		elif [ -x "$CONFDIR/sessions/$2" ]; then
+			echo "Setting default to $2"
+			ln -sf "$CONFDIR/sessions/$2" "$CONFDIR/default"
+		else
+			echo "tdmctl error: $2 is not available"
 		fi
 		;;
 	check)
@@ -38,6 +50,8 @@ case "$1" in
 	disable)
 		;;
 	*)
+		usage
+		;;
 esac
 
 
