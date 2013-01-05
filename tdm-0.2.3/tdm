@@ -32,9 +32,7 @@ clear #clear screen
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
 # X started, exit
-if [ $(pgrep -c X) -ne 0 ]; then
-	fallback 'X started.'
-fi
+pgrep X>/dev/null&&fallback 'X started.'
 
 # build the directory tree if not exist
 if [[ ! -d "${CONFDIR}" ]]; then
