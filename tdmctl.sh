@@ -49,8 +49,24 @@ case "$1" in
 		fi
 		;;
 	enable)
+		if [ -f "${CACHEDIR}/X$2" ]; then
+			cp -v "${CACHEDIR}/X$2" "${CONFDIR}/sessions/$2"
+		fi
+		if [ -f "${CACHEDIR}/E$2" ]; then
+			cp -v "${CACHEDIR}/E$2" "${CONFDIR}/extra/$2"
+		fi
 		;;
 	disable)
+		if [ ! -d "${CACHEDIR}" ]; then
+			mkdir -p "${CACHEDIR}"
+		fi
+# backup to cache
+		if [ -f "${CONFDIR}/sessions/$2" ]; then
+			mv -v "${CONFDIR}/sessions/$2" "${CACHEDIR}/X$2"
+		fi
+		if [ -f "${CONFDIR}/extra/$2" ]; then
+			mv -v "${CONFDIR}/extra/$2" "${CONFDIR}/E$2"
+		fi
 		;;
 	*)
 		usage
