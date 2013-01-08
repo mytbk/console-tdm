@@ -1,12 +1,8 @@
-#!/bin/bash
-#a tool to configure TDM
-
-CONFDIR="$HOME/.tdm"
-
 usage(){
+	echo "tdmctl init: initialize the config directory."
 	echo "tdmctl list: list available X sessions."
-	echo "tdmctl default [session]: show/set default X session"
-	echo "tdmctl check <session>: see what <session> is"
+	echo "tdmctl default [session]: show/set default X session."
+	echo "tdmctl check <session>: see what <session> is."
 }
 
 check(){
@@ -20,6 +16,10 @@ fi
 
 
 case "$1" in
+	init)
+		shift
+		init "$@"
+		;;
 	list)
 		for session in "$CONFDIR/sessions"/*; do
 			[ -x $session ] && echo $(basename $session)
@@ -37,6 +37,9 @@ case "$1" in
 		fi
 		;;
 	check)
+		if [ ! -n "$2" ]; then
+			usage
+		fi
 		FILE="$CONFDIR/sessions/$2"
 		if [ -f "$FILE" ]; then
 			check "$FILE"

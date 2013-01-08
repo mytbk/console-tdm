@@ -9,7 +9,6 @@
 CONFDIR="$HOME/.tdm"
 SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
-PREFIX=
 
 fallback(){
 	if [[ -n $1 ]]; then
@@ -34,9 +33,9 @@ clear #clear screen
 # X started, exit
 pgrep X>/dev/null&&fallback 'X started.'
 
-# build the directory tree if not exist
-if [[ ! -d "${CONFDIR}" ]]; then
-	cp -Rv "${PREFIX}/share/tdm" "${CONFDIR}"
+# build confdir
+if [ ! -d "${CONFDIR}" ]; then
+	tdmctl init
 fi
 
 # otherwise, run as the session chosen script
