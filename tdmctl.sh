@@ -1,6 +1,7 @@
 usage(){
 	echo "tdmctl init: initialize the config directory."
 	echo "tdmctl list: list available X sessions."
+	echo "tdmctl cache: list cached files."
 	echo "tdmctl default [session]: show/set default X session."
 	echo "tdmctl check <session>: see what <session> is."
 }
@@ -22,7 +23,13 @@ case "$1" in
 		;;
 	list)
 		for session in "$CONFDIR/sessions"/*; do
-			[ -x $session ] && echo $(basename $session)
+			[ -x "$session" ] && echo $(basename "$session")
+		done
+		;;
+	cache)
+		for file in "$CACHEDIR"/*; do
+			fn=$(basename "$file")
+			echo ${fn:1}
 		done
 		;;
 	default)
@@ -53,7 +60,7 @@ case "$1" in
 			cp -v "${CACHEDIR}/X$2" "${CONFDIR}/sessions/$2"
 		fi
 		if [ -f "${CACHEDIR}/E$2" ]; then
-			cp -v "${CACHEDIR}/E$2" "${CONFDIR}/extra/$2"
+			mv -v "${CACHEDIR}/E$2" "${CONFDIR}/extra/$2"
 		fi
 		;;
 	disable)
