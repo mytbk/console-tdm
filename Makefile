@@ -12,7 +12,10 @@ install: all
 	install tdm tdmctl ${DESTDIR}${PREFIX}/bin/
 	cp -Rv share ${DESTDIR}${PREFIX}/
 
+uninstall:
+	rm ${PREFIX}/bin/{tdm,tdmctl}
+	
 clean:
 	rm hprefix tdmctl
 
-.PHONY: clean all
+.PHONY: clean all install uninstall

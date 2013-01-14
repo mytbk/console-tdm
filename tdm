@@ -9,6 +9,7 @@
 CONFDIR="$HOME/.tdm"
 SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
+SAVELAST=1
 
 fallback(){
 	if [[ -n $1 ]]; then
@@ -22,7 +23,11 @@ if [[ -n $1 && $1 = "--xstart" ]]; then
 	if [[ -n ${TLOCALE} ]]; then
 		export LANG=${TLOCALE}
 	fi
-	exec "${CONFDIR}/default"
+	if [[ -x "/tmp/tdmdefault" ]]; then
+		exec /tmp/tdmdefault
+	else
+		exec "${CONFDIR}/default"
+	fi
 fi
 
 clear #clear screen
@@ -97,10 +102,15 @@ fi
 echo -n "Session id:"
 read sid
 
+rm -f /tmp/tdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
 	exec ${xsessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
-	ln -sf ${xsessions[${sid}]} "${CONFDIR}/default"
+	if [[ ${SAVELAST} -ne 0 ]]; then
+		ln -sf ${xsessions[${sid}]} "${CONFDIR}/default"
+	else
+		ln -sf ${xsessions[${sid}]} "/tmp/tdmdefault"
+	fi
 	startx
 	logout
 else
