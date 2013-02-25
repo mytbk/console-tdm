@@ -11,9 +11,12 @@ install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	install tdm tdmctl ${DESTDIR}${PREFIX}/bin/
 	cp -Rv share ${DESTDIR}${PREFIX}/
+	install -Dm644 tdm_comp.sh ${DESTDIR}/usr/share/bash-completion/completions/tdmctl
 
 uninstall:
-	rm ${PREFIX}/bin/{tdm,tdmctl}
+	rm -f ${PREFIX}/bin/{tdm,tdmctl}
+	rm -rf ${PREFIX}/share/tdm
+	rm -f /usr/share/bash-completion/completions/tdmctl
 	
 clean:
 	rm hprefix tdmctl
