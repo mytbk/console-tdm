@@ -4,7 +4,9 @@ usage(){
 	echo "tdmctl cache: list cached files."
 	echo "tdmctl check <session>: see what <session> is."
 	echo "tdmctl default [session]: show/set default X session."
+	echo "tdmctl add <name> <path> [X(default)/extra]: add a session."
 	echo "tdmctl enable/disable <session>: enable/disable session."
+	exit
 }
 
 check(){
@@ -54,6 +56,16 @@ case "$1" in
 		else
 			echo "$2 not exist!"
 			exit 1
+		fi
+		;;
+	add)
+		[ -n "$3" ]||usage
+		if [[ "$4" == "X" || "$4" == "" ]]; then
+			ln -s "$3" "${CONFDIR}/sessions/$2"
+		elif [ "$4" == "extra" ]; then
+			ln -s "$3" "${CONFDIR}/extra/$2"
+		else
+			usage
 		fi
 		;;
 	enable)

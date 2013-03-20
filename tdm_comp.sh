@@ -8,7 +8,7 @@ _tdmctl()
 	#
 	#  The basic options we'll complete.
 	#
-	opts="init list cache check default enable disable"
+	opts="init list add cache check default enable disable"
 
 	#
 	#  Complete the arguments to some of the basic commands.
