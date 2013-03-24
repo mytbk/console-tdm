@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo 'This is TDM, a tiny display manager.'
+echo 'This is TDM ${VERSION}, a tiny display manager.'
 echo 'Please select a session.'
 
 if [ -d ${SESSIONS} ]; then
