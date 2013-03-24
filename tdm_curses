@@ -1,0 +1,44 @@
+#!/bin/sh
+
+prglist=()
+
+if [ -d ${SESSIONS} ]; then
+	SDEFAULT=${$(basename ${SDEFAULT}):-""}
+
+	for script in "${SESSIONS}"/*; do
+		if [ -x "${script}" ]; then
+			xsessions[$XID]="${script}"
+			NAME=$(basename ${script})
+			prglist=(${prglist[@]} ${XID} ${NAME})
+			if [ "${NAME}" == "${SDEFAULT}" ]; then
+				DEFOPT="--default-item ${SID}"
+			else
+				DEFOPT=
+			fi
+			let XID=$(($XID+1))
+			let TOTAL=$(($TOTAL+1))
+		fi
+	done
+else
+	echo "${SESSIONS} doesn't exist."
+	echo "making this directory."
+	mkdir -p ${SESSIONS}
+fi
+
+if [ -d ${EXTRA} ]; then
+	for script in "${EXTRA}"/*; do
+		if [ -x "${script}" ]; then
+			xsessions[$TOTAL]="${script}"
+			NAME=$(basename ${script})
+			prglist=(${prglist[@]} ${TOTAL} ${NAME})
+			let TOTAL=$(($TOTAL+1))
+		fi
+	done
+fi
+
+if [ $TOTAL -eq 0 ]; then
+	fallback "No sessions found."
+fi
+
+sid=$(dialog --stdout ${DEFOPT} --menu 0 0 0 ${prglist[@]})
+

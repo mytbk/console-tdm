@@ -1,7 +1,8 @@
 PREFIX=/usr/local
+OBJECTS=tdm tdmctl tdm_text tdm_curses
 DESTDIR=
 
-all: tdm tdmctl
+all: ${OBJECTS}
 
 tdmctl: tdminit.sh tdmctl.sh header
 	echo "PREFIX=${PREFIX}" > hprefix
@@ -9,12 +10,12 @@ tdmctl: tdminit.sh tdmctl.sh header
 
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
-	install tdm tdmctl ${DESTDIR}${PREFIX}/bin/
+	install ${OBJECTS} ${DESTDIR}${PREFIX}/bin/
 	cp -Rv share ${DESTDIR}${PREFIX}/
 	install -Dm644 tdm_comp.sh ${DESTDIR}/usr/share/bash-completion/completions/tdmctl
 
 uninstall:
-	rm -f ${PREFIX}/bin/{tdm,tdmctl}
+	rm -f ${PREFIX}/bin/{tdm,tdmctl,tdm_text,tdm_curses}
 	rm -rf ${PREFIX}/share/tdm
 	rm -f /usr/share/bash-completion/completions/tdmctl
 	
