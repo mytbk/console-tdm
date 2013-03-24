@@ -42,4 +42,5 @@ if [ $TOTAL -eq 0 ]; then
 fi
 
 sid=$(dialog --stdout ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]})
+[ -n "$sid" ]||fallback "Falling back to shell."
 
