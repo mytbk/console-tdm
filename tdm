@@ -59,7 +59,7 @@ let XID=0
 let TOTAL=0
 xsessions=()
 
-if [ ${TDMUI} != "tdm_text" ]; then
+if [ ! ${TDMUI} == "tdm_text" ]; then
 	TDMUI=tdm_curses
 fi
 source ${TDMUI}

@@ -3,7 +3,9 @@
 prglist=()
 
 if [ -d ${SESSIONS} ]; then
-	SDEFAULT=${$(basename ${SDEFAULT}):-""}
+	if [ -n "${SDEFAULT}" ]; then
+		SDEFAULT=$(basename ${SDEFAULT})
+	fi
 
 	for script in "${SESSIONS}"/*; do
 		if [ -x "${script}" ]; then
@@ -11,7 +13,7 @@ if [ -d ${SESSIONS} ]; then
 			NAME=$(basename ${script})
 			prglist=(${prglist[@]} ${XID} ${NAME})
 			if [ "${NAME}" == "${SDEFAULT}" ]; then
-				DEFOPT="--default-item ${SID}"
+				DEFOPT="--default-item ${XID}"
 			else
 				DEFOPT=
 			fi
@@ -40,5 +42,5 @@ if [ $TOTAL -eq 0 ]; then
 	fallback "No sessions found."
 fi
 
-sid=$(dialog --stdout ${DEFOPT} --menu 0 0 0 ${prglist[@]})
+sid=$(dialog --stdout ${DEFOPT} --menu TDM 0 0 0 ${prglist[@]})
 
