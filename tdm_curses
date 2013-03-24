@@ -1,10 +1,11 @@
 #!/bin/sh
 
 prglist=()
+DEFOPT=""
 
 if [ -d ${SESSIONS} ]; then
 	if [ -n "${SDEFAULT}" ]; then
-		SDEFAULT=$(basename ${SDEFAULT})
+		DEFAULTWM=$(basename ${SDEFAULT})
 	fi
 
 	for script in "${SESSIONS}"/*; do
@@ -12,10 +13,8 @@ if [ -d ${SESSIONS} ]; then
 			xsessions[$XID]="${script}"
 			NAME=$(basename ${script})
 			prglist=(${prglist[@]} ${XID} ${NAME})
-			if [ "${NAME}" == "${SDEFAULT}" ]; then
+			if [ "${NAME}" == ${DEFAULTWM} ]; then
 				DEFOPT="--default-item ${XID}"
-			else
-				DEFOPT=
 			fi
 			let XID=$(($XID+1))
 			let TOTAL=$(($TOTAL+1))
