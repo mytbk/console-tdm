@@ -21,8 +21,8 @@ fallback(){
 
 # started from startx, so start session
 if [[ -n $1 && $1 = "--xstart" ]]; then
-	if [[ -n ${TLOCALE} ]]; then
-		export LANG=${TLOCALE}
+	if [[ -f "${CONFDIR}/tdmexit" ]]; then
+		. "${CONFDIR}/tdmexit"
 	fi
 	if [[ -x "/tmp/tdmdefault" ]]; then
 		exec /tmp/tdmdefault
@@ -45,7 +45,6 @@ if [ ! -d "${CONFDIR}" ]; then
 fi
 
 # otherwise, run as the session chosen script
-# load tdminit
 if [[ -f "${CONFDIR}/tdminit" ]]; then
 	source "${CONFDIR}/tdminit"
 fi

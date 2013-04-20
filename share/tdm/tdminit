@@ -4,7 +4,5 @@
 #TDMUI=tdm_text
 #uncomment to show linux logo
 #linux_logo -L classic
-#uncomment to set locale
-#export TLOCALE=en_US.UTF-8
 #startx without selecting
 #exec startx
