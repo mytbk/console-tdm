@@ -13,12 +13,14 @@ install: all
 	install ${OBJECTS} ${DESTDIR}${PREFIX}/bin/
 	cp -Rv share ${DESTDIR}${PREFIX}/
 	install -Dm644 tdm_comp.sh ${DESTDIR}/usr/share/bash-completion/completions/tdmctl
+	install -Dm644 zsh_comp ${DESTDIR}/usr/share/zsh/site-functions/_tdmctl
 
 uninstall:
 	rm -f ${PREFIX}/bin/{tdm,tdmctl,tdm_text,tdm_curses}
 	rm -rf ${PREFIX}/share/tdm
 	rm -f /usr/share/bash-completion/completions/tdmctl
-	
+	rm -f /usr/share/zsh/site-functions/_tdmctl
+
 clean:
 	rm hprefix tdmctl
 
