@@ -12,7 +12,7 @@ install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	install ${OBJECTS} ${DESTDIR}${PREFIX}/bin/
 	cp -Rv share ${DESTDIR}${PREFIX}/
-	install -Dm644 tdm_comp.sh ${DESTDIR}/usr/share/bash-completion/completions/tdmctl
+	install -Dm644 bash_comp ${DESTDIR}/usr/share/bash-completion/completions/tdmctl
 	install -Dm644 zsh_comp ${DESTDIR}/usr/share/zsh/site-functions/_tdmctl
 
 uninstall:
