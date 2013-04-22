@@ -59,7 +59,7 @@ let XID=0
 let TOTAL=0
 xsessions=()
 
-if ! type dialog; then
+if ! type dialog > /dev/null 2> /dev/null; then
 #no dialog program, force to use tdm_text
 	TDMUI=tdm_text
 fi
