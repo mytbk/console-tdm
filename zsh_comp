@@ -23,6 +23,7 @@ _tdmctl(){
 		*)
 			;;
 		esac
+		;;
 	esac
 }
 
