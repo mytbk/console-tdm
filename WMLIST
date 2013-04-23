@@ -1,0 +1,7 @@
+sessions/E17 /usr/bin/enlightenment_start
+sessions/Fluxbox /usr/bin/startfluxbox
+sessions/ICEWM /usr/bin/icewm-session
+sessions/PekWM /usr/bin/pekwm
+sessions/XFCE4 /usr/bin/startxfce4
+sessions/GNOME /usr/bin/gnome-session
+sessions/openbox /usr/bin/openbox-session
