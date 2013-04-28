@@ -30,7 +30,7 @@ if [ -d ${EXTRA} ]; then
 	for script in "${EXTRA}"/*; do
 		if [ -x "${script}" ]; then
 			xsessions[$TOTAL]="${script}"
-			NAME=$(basename ${script})
+			NAME="extra/$(basename ${script})"
 			prglist=(${prglist[@]} ${TOTAL} ${NAME})
 			let TOTAL=$(($TOTAL+1))
 		fi
