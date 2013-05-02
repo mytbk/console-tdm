@@ -3,6 +3,10 @@
 prglist=()
 DEFOPT=""
 
+# XID: X session Number
+# TOTAL: Number of items
+# sid : id that user selects
+
 if [ -d ${SESSIONS} ]; then
 	if [ -n "${SDEFAULT}" ]; then
 		DEFAULTWM=$(basename ${SDEFAULT})
@@ -41,6 +45,36 @@ if [ $TOTAL -eq 0 ]; then
 	fallback "No sessions found."
 fi
 
-sid=$(dialog --stdout ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]})
-[ -n "$sid" ]||fallback "Falling back to shell."
+tdm_curses(){
+	sid=$(dialog --stdout ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]})
+	[ -n "$sid" ]||fallback "Falling back to shell."
+}
+
+tdm_text(){
+	clear
+	echo "This is TDM ${VERSION}, a tiny display manager."
+	echo 'Please select a session.'
+
+	local _i=0
+	if [ ${XID} -gt 0 ]; then
+		echo "List of X sessions: (default ${DEFAULTWM})"
+		while [ ${_i} -lt ${XID} ]
+		do
+			echo ${_i} ${prglist[${_i}*2+1]}
+			let _i=${_i}+1
+		done
+	fi
+	
+	if [ ${XID} -lt ${TOTAL} ]; then
+		echo "others:"
+		while [ ${_i} -lt ${TOTAL} ]
+		do
+			echo ${_i} ${prglist[${_i}*2+1]}
+			let _i=${_i}+1
+		done
+	fi
+
+	echo -n "Program ID: "
+	read sid
+}
 

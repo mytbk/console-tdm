@@ -31,8 +31,6 @@ if [[ -n $1 && $1 = "--xstart" ]]; then
 	fi
 fi
 
-clear #clear screen
-
 # check for a 'good' tty
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
@@ -64,10 +62,11 @@ if ! type dialog > /dev/null 2> /dev/null; then
 	TDMUI=tdm_text
 fi
 
+source tdm_core
 if [ ! "${TDMUI}" == "tdm_text" ]; then
 	TDMUI=tdm_curses
 fi
-source ${TDMUI}
+${TDMUI}
 
 rm -f /tmp/tdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
