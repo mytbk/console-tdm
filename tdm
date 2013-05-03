@@ -127,26 +127,14 @@ tdm_curses(){
 
 tdm_text(){
 	echo "This is TDM ${VERSION}, a tiny display manager."
-	echo 'Please select a session.'
+	echo "Please select from the following: (default ${DEFAULTWM})"
 
 	local _i=0
-	if [ ${XID} -gt 0 ]; then
-		echo "List of X sessions: (default ${DEFAULTWM})"
-		while [ ${_i} -lt ${XID} ]
-		do
-			echo ${_i} ${prglist[${_i}*2+1]}
-			let _i=${_i}+1
-		done
-	fi
-	
-	if [ ${XID} -lt ${TOTAL} ]; then
-		echo "others:"
-		while [ ${_i} -lt ${TOTAL} ]
-		do
-			echo ${_i} ${prglist[${_i}*2+1]}
-			let _i=${_i}+1
-		done
-	fi
+	while [ ${_i} -lt ${TOTAL} ]
+	do
+		echo ${_i} ${prglist[${_i}*2+1]}
+		let _i=${_i}+1
+	done
 
 	echo -n "Program ID: "
 	read sid
