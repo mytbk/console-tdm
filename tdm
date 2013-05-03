@@ -52,6 +52,7 @@ if [[ -n $1 && $1 = "--xstart" ]]; then
 	fi
 fi
 
+clear
 # check for a 'good' tty
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
@@ -140,7 +141,6 @@ tdm_text(){
 	read sid
 }
 
-clear
 if ! nulltype dialog; then
 #no dialog program, force to use tdm_text
 	TDMUI=tdm_text
