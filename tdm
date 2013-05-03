@@ -126,7 +126,6 @@ tdm_curses(){
 }
 
 tdm_text(){
-	clear
 	echo "This is TDM ${VERSION}, a tiny display manager."
 	echo 'Please select a session.'
 
@@ -153,6 +152,7 @@ tdm_text(){
 	read sid
 }
 
+clear
 if ! nulltype dialog; then
 #no dialog program, force to use tdm_text
 	TDMUI=tdm_text
