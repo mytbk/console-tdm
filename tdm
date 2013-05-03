@@ -80,17 +80,15 @@ DEFOPT=""
 
 if [[ -x "${CONFDIR}/default" ]]; then
 	SDEFAULT=$(readlink "${CONFDIR}/default")
+	DEFAULTWM=$(basename ${SDEFAULT})
 else
 	SDEFAULT=
+	DEFAULTWM=
 fi
 
 if [ -d ${SESSIONS} ]; then
-	if [ -n "${SDEFAULT}" ]; then
-		DEFAULTWM=$(basename ${SDEFAULT})
-	fi
-
 	for script in "${SESSIONS}"/*; do
-		if [ -x "${script}" ]; then
+		if [ -x "${script}" ] && valid_item "${script}" ; then
 			xsessions[$XID]="${script}"
 			NAME=$(basename ${script})
 			prglist=(${prglist[@]} ${XID} ${NAME})
@@ -109,7 +107,7 @@ fi
 
 if [ -d ${EXTRA} ]; then
 	for script in "${EXTRA}"/*; do
-		if [ -x "${script}" ]; then
+		if [ -x "${script}" ] && valid_item "${script}" ; then
 			xsessions[$TOTAL]="${script}"
 			NAME="extra/$(basename ${script})"
 			prglist=(${prglist[@]} ${TOTAL} ${NAME})
@@ -155,7 +153,7 @@ tdm_text(){
 	read sid
 }
 
-if nulltype dialog; then
+if ! nulltype dialog; then
 #no dialog program, force to use tdm_text
 	TDMUI=tdm_text
 elif [ ! "${TDMUI}" == "tdm_text" ]; then
