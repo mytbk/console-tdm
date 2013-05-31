@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # TDM, tbk display manager, or tiny display manager,
 # is a session selector after login.
