@@ -1,0 +1,10 @@
+#!/bin/sh
+#Example TDM starting script
+
+# It requires twm,urxvt,xmessage
+# needs: twm urxvt xmessage
+
+twm &
+urxvt &
+xmessage "Exit"
+

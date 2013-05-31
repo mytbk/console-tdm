@@ -1,0 +1,7 @@
+#!/bin/sh
+#Example TDM starting script
+
+#It requires systemctl
+#needs: systemctl
+
+exec systemctl hibernate

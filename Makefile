@@ -1,5 +1,5 @@
 PREFIX=/usr/local
-OBJECTS=tdm tdmctl tdm_core
+OBJECTS=tdm tdmctl
 DESTDIR=
 
 all: ${OBJECTS}
@@ -21,7 +21,7 @@ install: all
 	install -Dm644 zsh_comp ${DESTDIR}/usr/share/zsh/site-functions/_tdmctl
 
 uninstall:
-	rm -f ${PREFIX}/bin/{tdm,tdmctl,tdm_core}
+	rm -f ${PREFIX}/bin/{tdm,tdmctl}
 	rm -rf ${PREFIX}/share/tdm
 	rm -f /usr/share/bash-completion/completions/tdmctl
 	rm -f /usr/share/zsh/site-functions/_tdmctl

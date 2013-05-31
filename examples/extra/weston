@@ -1,0 +1,7 @@
+#!/bin/bash
+#Example TDM starting script
+
+# It requires weston
+# needs: weston
+
+weston-launch -- --modules=xwayland.so

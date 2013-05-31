@@ -1,0 +1,4 @@
+Version 0.4.0
+	Add dependency support("needs" keyword)
+	Slim the code of tdm_text
+
