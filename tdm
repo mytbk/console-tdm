@@ -18,7 +18,7 @@ nulltype(){
 
 fallback(){
 	if [[ -n $1 ]]; then
-		echo -e "\033[31;1m$1\033[0m"
+		echo -e "\033[31;1m$1\033[0m" 1>&2
 	fi
 	exec $SHELL
 }
