@@ -1,22 +1,29 @@
 PREFIX=/usr/local
+BINDIR=$(PREFIX)/bin
+SHAREDIR=$(PREFIX)/share
 OBJECTS=tdm tdmctl
 DESTDIR=
 
 all: ${OBJECTS}
 
-tdmctl: tdminit.sh tdmctl.sh header
-	echo "PREFIX=${PREFIX}" > hprefix
-	cat header hprefix tdminit.sh tdmctl.sh > tdmctl
+tdmctl: tdmctl.sh
+	sed "s#^PREFIX.*#PREFIX=${PREFIX}#" tdmctl.sh > tdmctl
 
-install: all
-	mkdir -p ${DESTDIR}${PREFIX}/bin
-	install ${OBJECTS} ${DESTDIR}${PREFIX}/bin/
-	install -d ${DESTDIR}${PREFIX}/share/tdm/sessions
-	cp -Rv cfg/* ${DESTDIR}${PREFIX}/share/tdm/
+install: install_bin install_sessions install_completion
+
+install_bin: $(OBJECTS)
+	install -D $^ ${DESTDIR}${BINDIR}
+
+install_sessions:
+	install -d ${DESTDIR}${SHAREDIR}/tdm/sessions
+	cp -Rv cfg/* ${DESTDIR}${SHAREDIR}/tdm/
 	cat WMLIST|while read NAME DEST; \
 	do \
 		ln -s "$${DEST}" "${DESTDIR}${PREFIX}/share/tdm/$${NAME}"; \
-	done 
+	done
+
+install_completion: bash_comp zsh_comp
+## completion files must be installed in /usr/share
 	install -Dm644 bash_comp ${DESTDIR}/usr/share/bash-completion/completions/tdmctl
 	install -Dm644 zsh_comp ${DESTDIR}/usr/share/zsh/site-functions/_tdmctl
 

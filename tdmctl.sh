@@ -1,3 +1,20 @@
+#!/bin/bash
+#tdmctl: a tool to configure tdm
+
+CONFDIR="$HOME/.tdm"
+CACHEDIR="${CONFDIR}/cache"
+PREFIX=/usr/local
+
+init(){
+	[[ "$1" = "-f" || "$1" = "--force" ]]&&rm -rf "${CONFDIR}"
+	# build the directory tree if not exist
+	if [[ ! -d "${CONFDIR}" ]]; then
+		cp -Rv "${PREFIX}/share/tdm" "${CONFDIR}"
+	else
+		echo "Nothing done."
+	fi
+}
+
 usage(){
 	echo "tdmctl init: initialize the config directory."
 	echo "tdmctl list: list available X sessions."
