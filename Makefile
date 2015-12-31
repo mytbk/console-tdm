@@ -34,6 +34,6 @@ uninstall:
 	rm -f /usr/share/zsh/site-functions/_tdmctl
 
 clean:
-	rm hprefix tdmctl
+	rm -f tdmctl
 
 .PHONY: clean all install uninstall
